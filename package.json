@@ -6,8 +6,23 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {},
+      "postcss-pxtorem": {
+        "rootValue": 37.52,
+        "propList": [
+          "*"
+        ]
+      }
+    }
+  },
   "dependencies": {
     "core-js": "^3.6.4",
+    "esri-loader": "^2.14.0",
+    "lib-flexible": "^0.3.2",
+    "normalize.css": "^8.0.1",
+    "postcss-pxtorem": "^5.1.1",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuex": "^3.1.3"
