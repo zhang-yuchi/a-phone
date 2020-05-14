@@ -7,11 +7,12 @@ class Map {
     this.map = null
     this.view = null
   }
+  //将map和view加入Map实例
   initMap(options){
     this.view = options.view||null
     this.map = options.map || null
   }
-  async function test(){
+  static function test(){
     //静态方法 无法调用this中的属性
   }
   test(){
