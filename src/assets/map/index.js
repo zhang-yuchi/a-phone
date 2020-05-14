@@ -11,6 +11,12 @@ class Map {
     this.view = options.view||null
     this.map = options.map || null
   }
+  async function test(){
+    //静态方法 无法调用this中的属性
+  }
+  test(){
+    //动态方法 可以调用this
+  }
 }
 
 export default Map
