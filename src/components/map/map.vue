@@ -9,37 +9,46 @@ console.log(esriMap);
 export default {
   name: "web-map",
   mounted() {
-    const esrimap = new esriMap();
     // lazy load the required ArcGIS API for JavaScript modules and CSS
     loadModules(
-      ["esri/Map", "esri/views/MapView", "esri/layers/BaseTileLayer",  "esri/request"],
+      [
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/BaseTileLayer",
+        "esri/request",
+        "esri/layers/FeatureLayer"
+      ],
       { css: true },
       {
-        url: esrimap.config.url,
-        css: esrimap.config.css
+        url: esriMap.config.url,
+        css: esriMap.config.css
       }
-    ).then(([ArcGISMap, MapView, BaseTileLayer, esriRequest]) => {
-
-      // const map = new ArcGISMap({
-      //   basemap: "topo-vector"
-      // });
-
-      var newmap = new esriMap()
-      newmap.createMap(BaseTileLayer,esriRequest,ArcGISMap)
-
+    ).then(([ArcGISMap, MapView, BaseTileLayer, esriRequest, FeatureLayer]) => {
+      var esrimap = new esriMap();//创建地图对象
       this.view = new MapView({
         container: this.$el,
-        map: newmap.gaodemap,
-        center: [103.0419678465576,30.01008405698828],
-        zoom: 12,                 //min 3   max 18
-        constraints:{
-          minZoom:3,
-          maxZoom:18
+        map: null,
+        center: [104.818, 31.517],
+        zoom: 12, //min 3   max 18
+        constraints: {
+          minZoom: 3,
+          maxZoom: 18
         }
       });
-
-      this.view.ui.remove("attribution")  // 去掉右下角 powed by Esri 字样
-      console.log(this.view)
+      //地图的初始化
+      esrimap.initMap({
+        view: this.view,
+        modules: {
+          ArcGISMap,
+          MapView,
+          BaseTileLayer,
+          esriRequest,
+          FeatureLayer
+        }
+      });
+      //监听
+      esrimap.listenView()
+      console.log(esrimap);
     });
   },
   beforeDestroy() {
@@ -47,7 +56,7 @@ export default {
       // destroy the map view
       this.view.container = null;
     }
-  },
+  }
 };
 </script>
 
