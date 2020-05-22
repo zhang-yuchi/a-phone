@@ -252,6 +252,9 @@ class Map {
         outFields: ['*']
       }).then(res => {
         view.whenLayerView(layer).then(layerView => {
+          if(this.highlight){
+            this.highlight.remove()
+          }
           this.highlight = this.hightLightFeature(res.features, layerView, 'uid')
           resolve(res)
         })
@@ -260,10 +263,8 @@ class Map {
         reject(err)
       })
     })
-
-
-
   }
+  //高亮要素层
   hightLightFeature(element, target, type) {
     //type  可选字段:uid,target
     const view = this.currentView.MapView
